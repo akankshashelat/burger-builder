@@ -5,8 +5,7 @@ const layout = (props) => (
 <Fragment>
   <div>
     ToolBar,
-    SideBar,
-    Backdrop
+    SideBar
   </div>
 
   <main className={classes.Content}>
