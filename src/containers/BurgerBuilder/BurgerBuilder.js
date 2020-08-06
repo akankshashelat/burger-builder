@@ -51,40 +51,52 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
+    console.log(this.props, "BB");
     // alert("You continue!!");
-    this.setState({
-      loading: true
-    });
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Akanksha",
-        address: {
-          street: "Charles Street West",
-          postalCode: "M5S 2W9",
-          country: "Canada"
-        },
-        email: "dummy1234@gmail.com"
-      },
-      deliveryMethod: "Fast"
+    // this.setState({
+    //   loading: true
+    // });
+    // const order = {
+    //   ingredients: this.state.ingredients,
+    //   price: this.state.totalPrice,
+    //   customer: {
+    //     name: "Akanksha",
+    //     address: {
+    //       street: "Charles Street West",
+    //       postalCode: "M5S 2W9",
+    //       country: "Canada"
+    //     },
+    //     email: "dummy1234@gmail.com"
+    //   },
+    //   deliveryMethod: "Fast"
+    // }
+
+    // //we add .json to new node for firebase end point
+    // axios.post('/orders.json', order)
+    // .then( response => {
+    //   this.setState({
+    //     loading: false,
+    //     purchasing: false
+    //   });
+    // })
+    // .catch(error => {
+    //   this.setState({
+    //     loading: false,
+    //     purchasing: false
+    //   });
+    // });
+    const queryParams = [];
+    for (let i in this.state.ingredients){
+      queryParams.push(encodeURIComponent(i) +
+      "=" +
+      encodeURIComponent(this.state.ingredients[i]));
     }
+    const queryString = queryParams.join('&');
 
-    //we add .json to new node for firebase end point
-    axios.post('/orders.json', order)
-    .then( response => {
-      this.setState({
-        loading: false,
-        purchasing: false
-      });
-    })
-    .catch(error => {
-      this.setState({
-        loading: false,
-        purchasing: false
-      });
+    this.props.history.push({
+      pathname:'/checkout',
+      search: '?' + queryString
     });
-
   }
 
   updatePurchaseState(ingredients) {
